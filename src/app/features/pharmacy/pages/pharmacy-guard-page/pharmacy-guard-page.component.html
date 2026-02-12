@@ -1,0 +1,119 @@
+<div class="min-h-screen bg-gray-50 font-sans">
+
+  <div class="bg-[#2f5d8e] pb-32 pt-12 px-6 md:pb-48 md:pt-20 rounded-b-[2.5rem] shadow-sm text-center relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+       <div class="absolute -top-10 -left-10 w-40 h-40 bg-white rounded-full blur-3xl"></div>
+       <div class="absolute top-10 right-0 w-32 h-32 bg-white rounded-full blur-2xl"></div>
+    </div>
+
+    <div class="relative z-10 text-white">
+      <h2 class="text-md font-semibold tracking-widest uppercase opacity-90 mb-1">
+        Farmacia de Guardia
+      </h2>
+      <h1 class="text-3xl md:text-5xl font-bold tracking-tight">
+        {{ city }}
+      </h1>
+      <p class="mt-2 text-blue-100 font-medium md:text-lg">
+        {{ today | date:'EEEE, d MMMM' : '' : 'es-ES' }}
+        </p>
+    </div>
+  </div>
+
+  <div class="px-6 -mt-20 md:-mt-32 pb-10">
+
+    @if (pharmacyService.isLoading()) {
+      <div class="bg-white rounded-3xl shadow-xl p-8 w-full max-w-sm md:max-w-4xl mx-auto min-h-75 animate-pulse">
+        <div class="h-6 bg-gray-200 rounded w-1/2 mb-4 mx-auto md:mx-0"></div>
+        <div class="h-8 bg-gray-300 rounded w-3/4 mb-8 mx-auto md:mx-0"></div>
+        <div class="md:flex md:gap-8">
+           <div class="h-48 md:h-64 bg-gray-200 rounded-2xl w-full md:w-1/2 mb-6 md:mb-0"></div>
+           <div class="w-full md:w-1/2 space-y-4">
+              <div class="h-4 bg-gray-200 rounded w-full"></div>
+              <div class="h-4 bg-gray-200 rounded w-2/3"></div>
+              <div class="h-12 bg-gray-200 rounded-full w-full mt-6"></div>
+           </div>
+        </div>
+      </div>
+
+    } @else {
+
+      @if (pharmacyService.pharmacyOnDuty(); as farmacia) {
+
+        <div class="bg-white rounded-3xl shadow-2xl p-0 w-full max-w-sm md:max-w-4xl mx-auto overflow-hidden relative border border-gray-100 transition-all duration-300">
+
+          <div class="p-8 relative z-10">
+
+            <div class="md:text-center md:mb-8">
+                <h3 class="text-gray-500 text-md font-bold uppercase tracking-wider mb-1">
+                Farmacia
+                </h3>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight mb-6 md:mb-2">
+                {{ farmacia.name }}
+                </h2>
+            </div>
+
+            <div class="md:flex md:items-start md:gap-10">
+
+                <div class="w-full h-52 md:h-72 md:w-1/2 mb-6 md:mb-0 rounded-2xl overflow-hidden shadow-sm border border-gray-100 relative group shrink-0">
+                <img [src]="farmacia.imageUrl"
+                    alt="Foto de {{ farmacia.name }}"
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    onerror="this.src='https://images.unsplash.com/photo-1587854692152-cbe660dbde88?q=80&w=2069&auto=format&fit=crop'">
+                </div>
+
+                <div class="md:w-1/2 flex flex-col justify-center h-full">
+                    <div class="space-y-5">
+
+                        <div class="flex items-start">
+                            <div class="shrink-0 w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-[#2f5d8e]">
+                            <i class="fa-solid fa-location-dot text-lg"></i>
+                            </div>
+                            <div class="ml-4">
+                            <p class="text-sm text-gray-400 font-medium">Dirección</p>
+                            <p class="text-base font-semibold text-gray-800">{{ farmacia.address }}</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="shrink-0 w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-[#2f5d8e]">
+                            <i class="fa-solid fa-phone text-lg"></i>
+                            </div>
+                            <div class="ml-4">
+                            <p class="text-sm text-gray-400 font-medium">Teléfono</p>
+                            <a [href]="'tel:' + farmacia.phone" class="text-base font-semibold text-gray-800 hover:text-[#23476f] transition">
+                                {{ farmacia.phone }}
+                            </a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center pt-2">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-[#eaf4fe] text-[#2f5d8e]">
+                                <span class="w-2 h-2 rounded-full bg-[#2f5d8e] mr-2 animate-pulse"></span>
+                                Abierto hasta las 9:00 AM
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <a [href]="farmacia.mapsUrl"
+                            target="_blank"
+                            class="group relative w-full flex justify-center items-center py-4 px-4 border border-transparent text-md font-bold rounded-full text-white bg-[#2f5d8e] hover:bg-[#23476f] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2f5d8e] shadow-lg shadow-blue-500/30 transition-all duration-200 transform hover:-translate-y-1">
+                            <i class="fa-solid fa-map-location-dot mr-2 text-lg"></i>
+                            CÓMO LLEGAR
+                        </a>
+                    </div>
+                </div> </div> </div>
+        </div>
+
+      } @else {
+        <div class="bg-white rounded-3xl p-8 text-center shadow-lg border border-red-100 max-w-sm mx-auto">
+          <div class="text-red-500 text-5xl mb-4">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+          </div>
+          <p class="text-gray-600 font-medium">No se pudo cargar la información.</p>
+        </div>
+      }
+    }
+
+  </div>
+</div>
