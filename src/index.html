@@ -2,10 +2,19 @@
 <html lang="es">
   <head>
     <meta charset="utf-8" />
-    <title>Farmacia de Guardia - Berja</title>
+    <title>Farmacia de Guardia en Berja HOY | Ubicación, Horarios y Teléfono</title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Consulta qué farmacia está de guardia hoy en Berja. Horarios, dirección, teléfono y cómo llegar. Actualizado diariamente.">
+
+    <meta property="og:title" content="Farmacia de Guardia Berja - ¿Cuál toca hoy?">
+    <meta property="og:description" content="Consulta la farmacia de turno abierta ahora mismo en Berja.">
+    <!-- TODO -->
+    <meta property="og:image" content="https://tu-dominio-netlify.app/assets/og-image.png"> <meta property="og:url" content="https://tu-dominio-netlify.app/">
+    <meta property="og:type" content="website">
+
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <meta name="theme-color" content="#2f5d8e">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
@@ -13,6 +22,21 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "MedicalOrganization",
+        "name": "Farmacias de Guardia Berja",
+        "url": "https://tu-dominio.netlify.app",
+        "areaServed": {
+          "@type": "City",
+          "name": "Berja"
+        },
+        "description": "Servicio de información sobre farmacias de turno en Berja, Almería.",
+        "openingHours": "Mo-Su 00:00-23:59"
+      }
+    </script>
   </head>
   <body>
     <app-root></app-root>
